@@ -2,14 +2,15 @@ const xprs = require("express");
 const router = xprs.Router();
 const usuariosController = require ("../constrollers/usuarios");
 const upload = require("../midleware/upload");
+const authMiddleware = require("../middleware/authMiddleware");
 
 
 //rutas 
 
-router.get("/", usuariosController.ObtenerUsuarios);
-router.get("/:id", usuariosController.ObtenerUsuariosid);
-router.post("/", usuariosController.CrearUsuario);
-router.put("/:id", usuariosController.actualizarUsuario);
-router.delete("/:id", usuariosController.EliminarUsuario);
+router.get("/", authMiddleware, usuariosController.ObtenerUsuarios);
+router.get("/:id", authMiddleware, usuariosController.ObtenerUsuariosid);
+router.post("/", authMiddleware, upload.single("imagen"), usuariosController.CrearUsuario);
+router.put("/:id", authMiddleware, upload.single("imagen"), usuariosController.actualizarUsuario);
+router.delete("/:id", authMiddleware, usuariosController.EliminarUsuario);
 
 module.exports = router; 
