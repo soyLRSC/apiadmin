@@ -1,30 +1,29 @@
 const mongoose = require('mongoose');
 
 const publicacionesSchema = new mongoose.Schema({
-  imagen: { 
-    type: String, 
-    required: true },
-  recurso: { 
-    type: String, 
-    required: true },
-  titulo:{ 
+  texto: {
     type: String,
-    required: true },
-  descripcion:{
-    type: String,
-    required: true },
-fecha: {
-  type: Date,
-  required: true,
-  default: Date.now
-}
+    required: false
+  },
 
-  
-}, 
+  imagenes: [{
+    id: { type: String, required: true },
+    title: { type: String, required: false },
+    caption: { type: String, required: false },
+    src: { type: String, required: true } // base64 o URL
+  }],
 
+  videos: [{
+    id: { type: String, required: true },
+    title: { type: String, required: false },
+    caption: { type: String, required: false },
+    url: { type: String, required: true }
+  }],
 
-)
-
-
+  fecha: {
+    type: Date,
+    default: Date.now
+  }
+});
 
 module.exports = mongoose.model('publicaciones', publicacionesSchema);
